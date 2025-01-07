@@ -1,4 +1,4 @@
-#include <vector>
+#include <set>
 #include <iostream>
 
 // 面试题3（一）：找出数组中重复的数字
@@ -8,7 +8,7 @@
 
 
 // 比较结果
-void compareResault(const std::vector<int>& data, int expected[], int expectedSize)
+void compareResault(const std::set<int>& data, int expected[], int expectedSize)
 {
     int size = data.size();
     if (size == 0)
@@ -23,14 +23,16 @@ void compareResault(const std::vector<int>& data, int expected[], int expectedSi
         return;
     }
 
-    for (int j = 0; j < data.size(); ++j)
+    int j = 0;
+    for (int key : data)
     {
-        if (data.at(j) != expected[j])
+        if (key != expected[j])
         {
-            std::cout << data.at(j) << " is not accort for：" << expected[j] << false;
+            std::cout << key << " is not accort for：" << expected[j] << false;
             return;
         }
-        std::cout << data[j] << "\t";
+        std::cout << key << "\t";
+        ++j;
     }
     std::cout << "The task is end!" << std::endl;
 }
@@ -43,7 +45,7 @@ void repeatNumFun(int data[], int dataSize, int expected[], int expectedSize)
         return;
     }
 
-    std::vector<int> repeatNum;
+    std::set<int> repeatNum;
     for (int i = 0; i < dataSize; )
     {
         int value = data[i];
@@ -62,7 +64,7 @@ void repeatNumFun(int data[], int dataSize, int expected[], int expectedSize)
             int temp = data[value];
             if (value == temp)
             {
-                repeatNum.push_back(value);
+                repeatNum.insert(value);
                 ++i;
             }
             else
