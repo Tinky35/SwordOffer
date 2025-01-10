@@ -20,22 +20,27 @@ void replaceBlank(char str[], int maxLen)
             ++blankCount;
         ++i;
     }
-    int newLen = originalLen + blankCount * 3;
-    int idxOriginal = originalLen;
-    int idxNew = newLen;
-    while (idxOriginal > idxNew && idxOriginal >= 0)
+    int newLen = originalLen + blankCount * 2;
+    if (maxLen < newLen)
+    {
+        return;
+    }
+
+    int idxOriginal = originalLen - 1;
+    int idxNew = newLen - 1;
+    while (idxOriginal < idxNew && idxOriginal >= 0)
     {
         if (str[idxOriginal] != ' ')
         {
-            str[idxNew--] = str[idxOriginal];
+            str[idxNew--] = str[idxOriginal--];
         }
         else
         {
             str[idxNew--] =  '0';
             str[idxNew--] =  '2';
             str[idxNew--] =  '%';
+            idxOriginal--;
         }
-        --idxOriginal;
     }
 }
 
